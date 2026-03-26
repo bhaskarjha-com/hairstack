@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HairStack — Evidence-Based Hair Loss Protocols</title>
+    <meta name="description" content="Get a personalized, evidence-based hair loss treatment protocol in 60 seconds. Free, open-source, backed by clinical studies.">
+    <meta property="og:title" content="HairStack — Evidence-Based Hair Loss Protocols">
+    <meta property="og:description" content="Personalized hair loss treatment protocol in 60 seconds. Free & open-source.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js" defer></script>
+</head>
+<body>
+    <!-- Hero / Landing -->
+    <section id="hero" class="screen active">
+        <div class="container">
+            <div class="hero-badge">Open Source · Evidence-Based · Free</div>
+            <h1>Hair<span class="accent">Stack</span></h1>
+            <p class="hero-subtitle">Get a personalized, evidence-based hair loss protocol in 60 seconds</p>
+            <p class="hero-description">Answer 5 questions. Get a treatment plan backed by clinical studies. Print your daily routine. No signup. No tracking. Your data stays on your device.</p>
+            <button class="btn btn-primary btn-lg" onclick="startAssessment()">
+                Get Your Protocol
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-number">18</span><span class="stat-label">Treatments Analyzed</span></div>
+                <div class="stat"><span class="stat-number">11+</span><span class="stat-label">Clinical Studies</span></div>
+                <div class="stat"><span class="stat-number">4</span><span class="stat-label">Protocol Tiers</span></div>
+            </div>
+            <a href="https://github.com/YOUR_USERNAME/hairstack" class="github-link" target="_blank">⭐ Star on GitHub</a>
+        </div>
+    </section>
+
+    <!-- Screen 1: Norwood Stage -->
+    <section id="screen-1" class="screen">
+        <div class="container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 20%"></div></div>
+            <div class="step-indicator">Step 1 of 5</div>
+            <h2>What stage is your hair loss?</h2>
+            <p class="screen-desc">Click the image that best matches your current hairline and crown pattern.</p>
+            <div class="norwood-grid" id="norwood-grid">
+                <!-- Stage I -->
+                <div class="norwood-card" data-stage="1" onclick="selectNorwood(this, 1)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h1"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h1)">
+                            <path d="M10,55 L10,20 Q10,5 50,5 Q90,5 90,20 L90,55 Z" fill="#2d2319"/>
+                            <rect x="10" y="50" width="80" height="60" fill="#2d2319"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage I</div>
+                    <div class="nw-desc">No significant loss. Mature hairline.</div>
+                </div>
+                <!-- Stage II -->
+                <div class="norwood-card" data-stage="2" onclick="selectNorwood(this, 2)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h2"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h2)">
+                            <path d="M10,55 L10,20 Q10,5 50,5 Q90,5 90,20 L90,55 Z" fill="#2d2319"/>
+                            <rect x="10" y="50" width="80" height="60" fill="#2d2319"/>
+                            <ellipse cx="18" cy="22" rx="12" ry="10" fill="#c8956c"/>
+                            <ellipse cx="82" cy="22" rx="12" ry="10" fill="#c8956c"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage II</div>
+                    <div class="nw-desc">Slight recession at temples.</div>
+                </div>
+                <!-- Stage III -->
+                <div class="norwood-card" data-stage="3" onclick="selectNorwood(this, 3)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h3"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h3)">
+                            <path d="M10,55 L10,20 Q10,5 50,5 Q90,5 90,20 L90,55 Z" fill="#2d2319"/>
+                            <rect x="10" y="50" width="80" height="60" fill="#2d2319"/>
+                            <ellipse cx="20" cy="24" rx="16" ry="15" fill="#c8956c"/>
+                            <ellipse cx="80" cy="24" rx="16" ry="15" fill="#c8956c"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage III</div>
+                    <div class="nw-desc">Deep temple recession. First clinical loss.</div>
+                </div>
+                <!-- Stage IIIv -->
+                <div class="norwood-card" data-stage="3v" onclick="selectNorwood(this, '3v')">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h3v"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h3v)">
+                            <path d="M10,55 L10,20 Q10,5 50,5 Q90,5 90,20 L90,55 Z" fill="#2d2319"/>
+                            <rect x="10" y="50" width="80" height="60" fill="#2d2319"/>
+                            <ellipse cx="20" cy="24" rx="16" ry="15" fill="#c8956c"/>
+                            <ellipse cx="80" cy="24" rx="16" ry="15" fill="#c8956c"/>
+                            <circle cx="50" cy="62" r="11" fill="#c8956c" opacity="0.65"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage IIIv</div>
+                    <div class="nw-desc">Temple recession + crown thinning.</div>
+                </div>
+                <!-- Stage IV -->
+                <div class="norwood-card" data-stage="4" onclick="selectNorwood(this, 4)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h4"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h4)">
+                            <path d="M10,55 L10,20 Q10,5 50,5 Q90,5 90,20 L90,55 Z" fill="#2d2319"/>
+                            <rect x="10" y="50" width="80" height="60" fill="#2d2319"/>
+                            <ellipse cx="22" cy="26" rx="20" ry="20" fill="#c8956c"/>
+                            <ellipse cx="78" cy="26" rx="20" ry="20" fill="#c8956c"/>
+                            <circle cx="50" cy="62" r="14" fill="#c8956c"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage IV</div>
+                    <div class="nw-desc">Severe temples, large crown spot, bridge remains.</div>
+                </div>
+                <!-- Stage V -->
+                <div class="norwood-card" data-stage="5" onclick="selectNorwood(this, 5)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h5"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h5)">
+                            <rect x="10" y="62" width="80" height="50" fill="#2d2319"/>
+                            <ellipse cx="14" cy="48" rx="8" ry="20" fill="#2d2319"/>
+                            <ellipse cx="86" cy="48" rx="8" ry="20" fill="#2d2319"/>
+                            <rect x="32" y="46" width="36" height="5" rx="2" fill="#2d2319" opacity="0.4"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage V</div>
+                    <div class="nw-desc">Front and crown merge. Bridge nearly gone.</div>
+                </div>
+                <!-- Stage VI -->
+                <div class="norwood-card" data-stage="6" onclick="selectNorwood(this, 6)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h6"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h6)">
+                            <rect x="10" y="68" width="80" height="42" fill="#2d2319"/>
+                            <ellipse cx="14" cy="55" rx="7" ry="16" fill="#2d2319"/>
+                            <ellipse cx="86" cy="55" rx="7" ry="16" fill="#2d2319"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage VI</div>
+                    <div class="nw-desc">Bridge gone. Only side and back hair.</div>
+                </div>
+                <!-- Stage VII -->
+                <div class="norwood-card" data-stage="7" onclick="selectNorwood(this, 7)">
+                    <svg class="nw-svg" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="h7"><ellipse cx="50" cy="55" rx="40" ry="47"/></clipPath></defs>
+                        <ellipse cx="50" cy="55" rx="40" ry="47" fill="#c8956c"/>
+                        <g clip-path="url(#h7)">
+                            <rect x="10" y="75" width="80" height="35" fill="#2d2319"/>
+                            <ellipse cx="14" cy="63" rx="5" ry="13" fill="#2d2319"/>
+                            <ellipse cx="86" cy="63" rx="5" ry="13" fill="#2d2319"/>
+                        </g>
+                    </svg>
+                    <div class="nw-label">Stage VII</div>
+                    <div class="nw-desc">Most severe. Thin horseshoe band only.</div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-ghost" onclick="goToScreen('hero')">← Back</button>
+                <button class="btn btn-primary" id="btn-s1-next" disabled onclick="goToScreen('screen-2')">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 2: About You -->
+    <section id="screen-2" class="screen">
+        <div class="container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+            <div class="step-indicator">Step 2 of 5</div>
+            <h2>About you</h2>
+            <p class="screen-desc">This helps us assess your risk profile and urgency.</p>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="age">Your age</label>
+                    <select id="age" onchange="checkStep2()">
+                        <option value="">Select...</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-30">25-30</option>
+                        <option value="31-35">31-35</option>
+                        <option value="36-40">36-40</option>
+                        <option value="41-50">41-50</option>
+                        <option value="50+">50+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="father">Father's hair loss stage</label>
+                    <select id="father" onchange="checkStep2()">
+                        <option value="">Select...</option>
+                        <option value="none">No significant loss</option>
+                        <option value="mild">Mild (NW 1-3)</option>
+                        <option value="moderate">Moderate (NW 4-5)</option>
+                        <option value="severe">Severe (NW 6-7)</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="grandfather">Grandfather's hair loss (either side)</label>
+                    <select id="grandfather" onchange="checkStep2()">
+                        <option value="">Select...</option>
+                        <option value="none">No significant loss</option>
+                        <option value="mild">Mild (NW 1-3)</option>
+                        <option value="moderate">Moderate (NW 4-5)</option>
+                        <option value="severe">Severe (NW 6-7)</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="duration">How long have you noticed loss?</label>
+                    <select id="duration" onchange="checkStep2()">
+                        <option value="">Select...</option>
+                        <option value="<1">Less than 1 year</option>
+                        <option value="1-3">1-3 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="5+">5+ years</option>
+                    </select>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-ghost" onclick="goToScreen('screen-1')">← Back</button>
+                <button class="btn btn-primary" id="btn-s2-next" disabled onclick="goToScreen('screen-3')">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 3: Risk Tolerance -->
+    <section id="screen-3" class="screen">
+        <div class="container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+            <div class="step-indicator">Step 3 of 5</div>
+            <h2>Your priority</h2>
+            <p class="screen-desc">This determines which treatments are included in your protocol.</p>
+            <div class="risk-cards">
+                <div class="risk-card" data-risk="zero-risk" onclick="selectRisk(this, 'zero-risk')">
+                    <div class="risk-icon">🛡️</div>
+                    <h3>Zero Risk</h3>
+                    <p>I want <strong>zero health risk</strong>, even if results are slower. No pharmaceutical DHT blockers.</p>
+                    <div class="risk-efficacy">~62% efficacy</div>
+                </div>
+                <div class="risk-card recommended" data-risk="optimal" onclick="selectRisk(this, 'optimal')">
+                    <div class="recommended-badge">Recommended</div>
+                    <div class="risk-icon">⚡</div>
+                    <h3>Optimal</h3>
+                    <p>I want the <strong>best results with minimal risk</strong>. I'm open to topical finasteride (0.002% side effect rate).</p>
+                    <div class="risk-efficacy">~87% efficacy</div>
+                </div>
+                <div class="risk-card" data-risk="aggressive" onclick="selectRisk(this, 'aggressive')">
+                    <div class="risk-icon">🚀</div>
+                    <h3>Aggressive</h3>
+                    <p>I want <strong>maximum results</strong> and accept standard medical risks. Include oral medications + PRP.</p>
+                    <div class="risk-efficacy">~93% efficacy</div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-ghost" onclick="goToScreen('screen-2')">← Back</button>
+                <button class="btn btn-primary" id="btn-s3-next" disabled onclick="goToScreen('screen-4')">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 4: Country -->
+    <section id="screen-4" class="screen">
+        <div class="container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+            <div class="step-indicator">Step 4 of 5</div>
+            <h2>Where are you located?</h2>
+            <p class="screen-desc">This determines product recommendations and pricing.</p>
+            <div class="country-grid">
+                <div class="country-card" onclick="selectCountry(this, 'india')">
+                    <span class="country-flag">🇮🇳</span>
+                    <span class="country-name">India</span>
+                </div>
+                <div class="country-card" onclick="selectCountry(this, 'us')">
+                    <span class="country-flag">🇺🇸</span>
+                    <span class="country-name">United States</span>
+                </div>
+                <div class="country-card" onclick="selectCountry(this, 'uk')">
+                    <span class="country-flag">🇬🇧</span>
+                    <span class="country-name">United Kingdom</span>
+                </div>
+                <div class="country-card" onclick="selectCountry(this, 'other')">
+                    <span class="country-flag">🌍</span>
+                    <span class="country-name">Other</span>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-ghost" onclick="goToScreen('screen-3')">← Back</button>
+                <button class="btn btn-primary" id="btn-s4-next" disabled onclick="generateProtocol()">Generate My Protocol →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 5: Results -->
+    <section id="screen-5" class="screen">
+        <div class="container">
+            <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+            <div class="step-indicator">Your Protocol</div>
+
+            <!-- Risk Profile Summary -->
+            <div id="risk-profile" class="result-card profile-card"></div>
+
+            <!-- NEW: Doctor's Consultation -->
+            <div id="consultation-section" class="result-card consultation-card" style="display:none"></div>
+
+            <!-- Protocol Header -->
+            <div id="protocol-header" class="result-card protocol-card"></div>
+
+            <!-- Treatments -->
+            <div id="treatment-list" class="treatments-section"></div>
+
+            <!-- Daily Routine -->
+            <div id="routine-section" class="result-card routine-card">
+                <h3>📋 Your Daily Routine</h3>
+                <div id="routine-content"></div>
+            </div>
+
+            <!-- NEW: Expected Timeline -->
+            <div id="timeline-section" class="result-card timeline-card" style="display:none">
+                <h3>📈 What to Expect</h3>
+                <p class="timeline-intro">Every treatment journey follows this pattern. Understanding it prevents premature quitting.</p>
+                <div id="timeline-content"></div>
+            </div>
+
+            <!-- NEW: Safety Monitoring -->
+            <div id="monitoring-section" class="result-card monitoring-card" style="display:none"></div>
+
+            <!-- NEW: Prognosis -->
+            <div id="prognosis-section" class="result-card prognosis-card" style="display:none">
+                <h3>🔮 Prognosis</h3>
+                <div id="prognosis-content"></div>
+            </div>
+
+            <!-- v3: Day 1 Checklist -->
+            <div id="day1-section" class="result-card day1-card" style="display:none"></div>
+
+            <!-- v3: Photo Protocol -->
+            <div id="photo-section" class="result-card photo-card" style="display:none"></div>
+
+            <!-- v3: Common Mistakes -->
+            <div id="mistakes-section" class="result-card mistakes-card" style="display:none"></div>
+
+            <!-- Shopping List -->
+            <div id="shopping-list" class="result-card shopping-card">
+                <h3>🛒 Shopping List</h3>
+                <div id="shopping-content"></div>
+            </div>
+
+            <!-- Studies -->
+            <div id="studies-section" class="result-card studies-card">
+                <h3>📚 Key Evidence</h3>
+                <div id="studies-content"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="result-actions">
+                <button class="btn btn-primary" onclick="exportPDF()">📄 Download PDF</button>
+                <button class="btn btn-ghost" onclick="startOver()">↩ Start Over</button>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <strong>⚕️ Medical Disclaimer:</strong> HairStack is an evidence library, not medical advice. Every recommendation links to published clinical studies. Always consult a board-certified dermatologist before starting treatment. Individual results vary. See <a href="DISCLAIMER.md">full disclaimer</a>.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>HairStack is open-source and free forever. <a href="https://github.com/YOUR_USERNAME/hairstack" target="_blank">View on GitHub</a></p>
+            <p class="footer-note">Built with research, not marketing budgets. No affiliate links. No tracking. MIT License.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
