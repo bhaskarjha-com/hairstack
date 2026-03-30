@@ -45,7 +45,7 @@
       "evidenceRating": 5,
       "evidenceLabel": "Phase III RCTs, comparable to oral finasteride",
       "fdaApproved": false,
-      "sideEffects": ["Sexual side effects: 0.002% in real-world data", "Scalp irritation (rare)"],
+      "sideEffects": ["Sexual side effects: 2.8% in Phase III trial (vs 3.3% placebo — not statistically significant)", "Scalp irritation (rare)"],
       "systemicRisk": "very-low",
       "riskLevel": "low",
       "tiers": ["optimal", "aggressive", "gold-standard"],
@@ -153,14 +153,14 @@
       "evidenceRating": 5,
       "evidenceLabel": "FDA-approved, decades of data, gold standard",
       "fdaApproved": true,
-      "sideEffects": ["Sexual side effects: ~2%", "Post-Finasteride Syndrome: ~0.8-1% (NIH-recognized)", "Depression, anxiety (rare)"],
+      "sideEffects": ["Sexual side effects: ~5% in meta-analysis (vs ~3% placebo)", "Post-Finasteride Syndrome: rare (incidence debated)", "Depression, anxiety (rare)"],
       "systemicRisk": "moderate",
       "riskLevel": "standard",
       "tiers": ["gold-standard"],
       "applicationFrequency": "Once daily oral tablet",
       "timeToResults": "4-6 months visible, 12-24 months peak",
       "keyStudyId": "kaufman-finasteride",
-      "notes": "Most effective single treatment for AGA. However, ~2% sexual side effect rate and PFS risk make many men seek alternatives."
+      "notes": "Most effective single treatment for AGA. ~5% sexual side effect rate in meta-analysis (vs ~3% placebo). Most side effects resolve on discontinuation. Nocebo effect contributes significantly to reported rates."
     },
     {
       "id": "oral-minoxidil",

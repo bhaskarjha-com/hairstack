@@ -13,7 +13,7 @@ HairStack is an **open-source protocol generator** for male androgenetic alopeci
 
 **No marketing. No affiliate links. No tracking. Just research.**
 
-### [→ Get Your Protocol](https://YOUR_USERNAME.github.io/hairstack/app/)
+### [→ Get Your Protocol](https://bhaskarjha-com.github.io/hairstack/)
 
 ---
 
@@ -30,12 +30,12 @@ HairStack is an **open-source protocol generator** for male androgenetic alopeci
 
 | Tier | Approach | Efficacy | Risk | Monthly Cost |
 |---|---|---|---|---|
-| **Zero Risk** | Minoxidil + microneedling + natural DHT blockers | ~62% | Zero | ₹1,300 / $45 |
-| **Optimal** ⭐ | + Topical finasteride + Redensyl stem cell serum | ~87% | Near-zero (0.002%) | ₹1,750 / $55 |
-| **Aggressive** | + Oral minoxidil + PRP injections | ~93% | Low-moderate | ₹5,000 / $150 |
-| **Gold Standard** | Oral finasteride + topical minoxidil (reference) | 100% | Moderate (~2%) | ₹800 / $30 |
+| **Zero Risk** | Minoxidil + microneedling + natural DHT blockers | Moderate | Zero systemic risk | ₹1,300 / $45 |
+| **Optimal** ⭐ | + Topical finasteride + Redensyl stem cell serum | High | Low (2.8% side effects vs 3.3% placebo — Phase III) | ₹1,750 / $55 |
+| **Aggressive** | + Oral minoxidil + PRP injections | Very High | Moderate (requires BP monitoring) | ₹5,000 / $150 |
+| **Gold Standard** | Oral finasteride + topical minoxidil (reference) | Maximum | Moderate (~5% side effects vs ~3% placebo — meta-analysis) | ₹800 / $30 |
 
-*Efficacy is relative to the Gold Standard (oral finasteride + topical minoxidil), which is the clinical reference point.*
+*Efficacy labels are qualitative estimates based on component study data — not direct head-to-head clinical comparisons. Individual results vary significantly.*
 
 ---
 
@@ -56,7 +56,7 @@ Every treatment is scored on a 5-point evidence scale based on study quality and
 | PRP (Platelet Rich Plasma) | Concentrated growth factors from own blood | ⭐⭐⭐⭐ Multiple RCTs | Growth stimulation |
 | Rosemary Oil | Microcirculation + mild DHT inhibition | ⭐⭐⭐ 1 RCT (matched minox 2%) | Growth stimulation |
 
-*See [full treatment database](data/treatments.json) for all 18 treatments with mechanisms, side effects, and citations.*
+*See [full treatment database](app/data/treatments.json) for all 18 treatments with mechanisms, side effects, and citations.*
 
 ---
 
@@ -91,7 +91,7 @@ Every treatment is scored on a 5-point evidence scale based on study quality and
 - **Vanilla HTML + CSS + JS** — zero dependencies, instant load
 - **GitHub Pages** — free hosting, auto-deploy from `app/` directory
 - **JSON data files** — easy to update and contribute to
-- **html2pdf.js** (CDN) — PDF export for routine cards
+- **Native Print** — `window.print()` for PDF/print export (zero dependencies)
 - **No backend** — your data stays on your device
 
 ---

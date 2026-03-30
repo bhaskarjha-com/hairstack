@@ -34,7 +34,7 @@
       "type": "Clinical Study",
       "source": "NIH / PubMed",
       "finding": "46.7% growth rate enhancement by day 90, 80.8% thickness improvement by day 120, 64.9% hair fall reduction.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39917132/"
     },
     {
       "id": "saw-palmetto-meta-2020",
@@ -69,7 +69,7 @@
       "year": 1998,
       "type": "Pivotal RCT (FDA)",
       "source": "Journal of the American Academy of Dermatology",
-      "finding": "Finasteride 1mg: significant hair count increase vs placebo at 12 and 24 months. ~2% sexual side effect rate.",
+      "finding": "Finasteride 1mg: significant hair count increase vs placebo at 12 and 24 months. ~5% sexual side effects (vs ~3% placebo in meta-analysis of 15 RCTs).",
       "url": "https://pubmed.ncbi.nlm.nih.gov/9777765/"
     },
     {
@@ -98,6 +98,78 @@
       "source": "Medical Hypotheses",
       "finding": "2% ketoconazole shampoo used 2-4×/week showed hair density improvement and anti-androgenic activity at the scalp.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/9572576/"
+    },
+    {
+      "id": "oral-minox-consensus-2024",
+      "title": "Low-Dose Oral Minoxidil Initiation: International Modified Delphi Consensus",
+      "year": 2024,
+      "type": "Delphi Consensus (43 specialists, 12 countries)",
+      "source": "JAMA Dermatology",
+      "finding": "Consensus on 76 prescribing items. Starting dose: 2.5mg/day for males. Effective for AGA with favorable safety profile at low doses.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39565602/"
+    },
+    {
+      "id": "prp-meta-analysis",
+      "title": "Effectiveness of Platelet-Rich Plasma in Treatment of Androgenic Alopecia: Meta-Analysis",
+      "year": 2023,
+      "type": "Meta-Analysis",
+      "source": "Dermatologic Therapy",
+      "finding": "PRP monotherapy significantly increased hair density vs control. Effective and safe at 3 and 6 months.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37644190/"
+    },
+    {
+      "id": "ghk-cu-follicle",
+      "title": "Regenerative and Protective Actions of the GHK-Cu Peptide in Light of New Gene Data",
+      "year": 2018,
+      "type": "Review / Gene Expression Study",
+      "source": "International Journal of Molecular Sciences",
+      "finding": "GHK-Cu modulates genes for hair follicle development, increases follicle size, and stimulates growth via angiogenesis and anti-inflammatory pathways.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29986520/"
+    },
+    {
+      "id": "lllt-meta",
+      "title": "Comparative Effectiveness of LLLT for Androgenic Alopecia: Meta-Analysis of RCTs",
+      "year": 2019,
+      "type": "Meta-Analysis (11 RCTs)",
+      "source": "Lasers in Medical Science",
+      "finding": "LLLT significantly increased hair density in both male and female patients with androgenetic alopecia vs sham devices.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30706177/"
+    },
+    {
+      "id": "baicapil-2013",
+      "title": "Baicapil Clinical Evaluation on Hair Growth and Density",
+      "year": 2013,
+      "type": "Clinical Study",
+      "source": "Provital Group",
+      "finding": "Baicapil (soy + wheat sprout + Scutellaria) increased hair density by 52% and reduced hair loss by 34% at 3 months in a 60-patient study.",
+      "url": "https://provitalgroup.com/active-ingredients/baicapil/"
+    },
+    {
+      "id": "caffeine-in-vitro",
+      "title": "Effect of Caffeine and Testosterone on Proliferation of Human Hair Follicles In Vitro",
+      "year": 2007,
+      "type": "In Vitro Study",
+      "source": "International Journal of Dermatology",
+      "finding": "Caffeine (0.001-0.005%) counteracted testosterone-induced hair growth suppression and stimulated follicle elongation in organ culture.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17214716/"
+    },
+    {
+      "id": "dim-estrogen",
+      "title": "3,3'-Diindolylmethane Modulates Estrogen Metabolism in Patients with Thyroid Disease",
+      "year": 2011,
+      "type": "Clinical Trial",
+      "source": "Thyroid (Mary Ann Liebert)",
+      "finding": "DIM shifted estrogen metabolism toward favorable 2-hydroxyestrone pathway. Supports hormonal balance relevant to DHT-sensitive tissues.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21774671/"
+    },
+    {
+      "id": "ashwagandha-testosterone",
+      "title": "A Randomized, Double-Blind, Placebo-Controlled Study Examining Effects of Ashwagandha on Hormones",
+      "year": 2019,
+      "type": "Randomized Double-Blind Placebo-Controlled Trial",
+      "source": "American Journal of Men's Health",
+      "finding": "Ashwagandha supplementation increased testosterone by 14.7% and DHEA-S by 18.2% vs placebo over 8 weeks. Also reduced cortisol.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31517876/"
     }
   ]
 }

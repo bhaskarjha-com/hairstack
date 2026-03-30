@@ -19,21 +19,37 @@ let productsData = null;
 let studiesData = null;
 
 // ---------- Data Loading ----------
+let dataLoaded = false;
+
 async function loadData() {
     try {
         const [t, p, pr, s] = await Promise.all([
-            fetch('data/treatments.json').then(r => r.json()),
-            fetch('data/protocols.json').then(r => r.json()),
-            fetch('data/products-india.json').then(r => r.json()),
-            fetch('data/studies.json').then(r => r.json())
+            fetch('data/treatments.json').then(r => { if (!r.ok) throw new Error('treatments'); return r.json(); }),
+            fetch('data/protocols.json').then(r => { if (!r.ok) throw new Error('protocols'); return r.json(); }),
+            fetch('data/products-india.json').then(r => { if (!r.ok) throw new Error('products'); return r.json(); }),
+            fetch('data/studies.json').then(r => { if (!r.ok) throw new Error('studies'); return r.json(); })
         ]);
         treatmentsData = t.treatments;
         protocolsData = p.protocols;
         productsData = pr.products;
         studiesData = s.studies;
+        dataLoaded = true;
+        // Remove error banner if present
+        const banner = document.getElementById('data-error');
+        if (banner) banner.remove();
     } catch (e) {
         console.error('Failed to load data:', e);
+        showDataError();
     }
+}
+
+function showDataError() {
+    if (document.getElementById('data-error')) return;
+    const banner = document.createElement('div');
+    banner.id = 'data-error';
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;padding:12px 20px;background:#dc2626;color:#fff;text-align:center;z-index:9999;font-family:Inter,sans-serif;font-size:0.9rem;';
+    banner.innerHTML = '⚠️ Failed to load treatment data. Please check your connection. <button onclick="loadData()" style="margin-left:12px;padding:4px 12px;background:#fff;color:#dc2626;border:none;border-radius:4px;cursor:pointer;font-weight:600;">Retry</button>';
+    document.body.prepend(banner);
 }
 
 loadData();
@@ -52,6 +68,10 @@ function startOver() {
     document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
     document.querySelectorAll('select').forEach(s => s.value = '');
     document.querySelectorAll('[id^="btn-s"]').forEach(b => b.disabled = true);
+    // Reset v2/v3 dynamic sections
+    ['day1-section','photo-section','mistakes-section','monitoring-section',
+     'timeline-section','prognosis-section','consultation-section']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
     goToScreen('hero');
 }
 
@@ -72,6 +92,13 @@ function checkStep2() {
 }
 
 function selectRisk(card, risk) {
+    // Safety gate for protocols containing oral medications
+    if (risk === 'aggressive' || risk === 'gold-standard') {
+        const safetyMsg = risk === 'aggressive'
+            ? 'The Aggressive Protocol includes oral minoxidil (a vasodilator) and topical finasteride.\n\n⚠️ Oral minoxidil is contraindicated if you:\n• Take blood pressure medication\n• Have a heart condition\n• Have kidney disease\n\nAre you free of these conditions?'
+            : 'The Gold Standard Protocol includes oral finasteride (a 5α-reductase inhibitor).\n\n⚠️ Oral finasteride may cause sexual side effects in ~5% of users (vs ~3% placebo). Most resolve on discontinuation.\n\nDo you understand these risks and wish to proceed?';
+        if (!confirm(safetyMsg)) return;
+    }
     document.querySelectorAll('.risk-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     state.riskTolerance = risk;
@@ -149,10 +176,10 @@ function getUrgency() {
 function getRecoveryPotential() {
     const stageNum = getStageNum();
     const dur = state.duration;
-    if (stageNum <= 2 && (dur === '<1' || dur === '1-3')) return { pct: '85-95%', label: 'Excellent', msg: 'Most miniaturized follicles are still alive and recoverable.' };
-    if (stageNum <= 3.5 && dur !== '5+') return { pct: '65-80%', label: 'Good', msg: 'Majority of follicles can be reactivated with consistent treatment.' };
-    if (stageNum <= 5) return { pct: '40-60%', label: 'Moderate', msg: 'Significant regrowth possible, but some follicles may be permanently miniaturized.' };
-    return { pct: '20-35%', label: 'Limited', msg: 'Focus shifts to maintaining existing hair and moderate regrowth. Advanced stages may benefit from transplant consultation.' };
+    if (stageNum <= 2 && (dur === '<1' || dur === '1-3')) return { pct: 'Excellent', label: 'Excellent', msg: 'At early stages with recent onset, most miniaturized follicles are still alive and responsive to treatment.' };
+    if (stageNum <= 3.5 && dur !== '5+') return { pct: 'Good', label: 'Good', msg: 'The majority of follicles can typically be reactivated with consistent treatment at this stage.' };
+    if (stageNum <= 5) return { pct: 'Moderate', label: 'Moderate', msg: 'Meaningful regrowth is possible, but some follicles may be permanently miniaturized. Results vary significantly between individuals.' };
+    return { pct: 'Limited', label: 'Limited', msg: 'Focus shifts to maintaining existing hair. Advanced stages may benefit from transplant consultation. Individual outcomes vary widely.' };
 }
 
 function getProjectedTrajectory() {
@@ -176,9 +203,9 @@ function getProjectedTrajectory() {
     if (ageGroup === '18-24') { yearsTo5 = Math.round(yearsTo5 * 0.7); yearsTo6 = Math.round(yearsTo6 * 0.7); }
 
     const currentLabel = getStageLabel();
-    if (stageNum >= 6) return `At Stage ${currentLabel} with ${genetic} genetics, further loss is likely limited to density reduction in remaining areas.`;
-    if (yearsTo5 === 0) return `At Stage ${currentLabel}, without treatment, progression to Stage VI typically occurs within ${yearsTo6} years with ${genetic} genetic factors.`;
-    return `At Stage ${currentLabel} with ${genetic} family history, without treatment, most men in your profile progress to Stage V within ${yearsTo5} years and Stage VI within ${yearsTo6} years.`;
+    if (stageNum >= 6) return `At Stage ${currentLabel} with ${genetic} genetics, further loss is typically limited to density reduction in remaining areas.`;
+    if (yearsTo5 === 0) return `At Stage ${currentLabel}, without treatment, continued progression is likely. The rate varies significantly between individuals and cannot be precisely predicted.`;
+    return `At Stage ${currentLabel} with ${genetic} family history, without treatment, progression is likely over the coming years. While exact timelines vary by individual, ${genetic} genetic factors suggest a ${genetic === 'severe' ? 'faster' : genetic === 'moderate' ? 'moderate' : 'slower'} trajectory.`;
 }
 
 // ---------- Doctor's Consultation Generator ----------
@@ -217,7 +244,7 @@ function generateConsultation() {
     if (tier === 'zero-risk') {
         protocolMsg = ' Your Zero Risk Protocol targets growth stimulation and absorption enhancement without any pharmaceutical DHT blockers — ideal if you\'re not comfortable with finasteride. Minoxidil + microneedling is a well-proven combination with zero systemic risk.';
     } else if (tier === 'optimal') {
-        protocolMsg = ' Your Optimal Protocol attacks hair loss through 4 independent mechanisms — DHT blocking (topical finasteride, 0.002% side effect rate), growth stimulation (minoxidil), stem cell activation (Redensyl), and absorption amplification (microneedling). This is what a dermatologist would prescribe.';
+        protocolMsg = ' Your Optimal Protocol attacks hair loss through 4 independent mechanisms — DHT blocking (topical finasteride, with side effect rates similar to placebo in Phase III trials), growth stimulation (minoxidil), stem cell activation (Redensyl), and absorption amplification (microneedling). This is what a dermatologist would prescribe.';
     } else if (tier === 'aggressive') {
         protocolMsg = ' Your Aggressive Protocol throws the full arsenal at this: systemic growth stimulation (oral minoxidil), targeted DHT blocking (topical finasteride), stem cell activation (Redensyl), microneedling amplification, and direct growth factor injection (PRP). This maximizes your chances at the cost of moderate medical monitoring.';
     }
@@ -255,6 +282,9 @@ function generateProtocol() {
     renderMistakes(protocol);
     renderShoppingList(protocol);
     renderStudies(protocol);
+    renderStreak();
+    renderJournal();
+    renderLibrary();
 
     goToScreen('screen-5');
 }
@@ -281,7 +311,7 @@ function renderRiskProfile() {
             </div>
             <div>
                 <div class="profile-item-label">Genetics</div>
-                <div class="profile-item-value" style="text-transform:capitalize;color:${genetic === 'severe' ? 'var(--red)' : genetic === 'moderate' ? 'var(--amber)' : 'var(--green)'}">${genetic}</div>
+                <div class="profile-item-value" style="text-transform:capitalize" class="urgency-${genetic}">${genetic}</div>
             </div>
             <div>
                 <div class="profile-item-label">Urgency</div>
@@ -289,7 +319,7 @@ function renderRiskProfile() {
             </div>
             <div>
                 <div class="profile-item-label">Recovery Potential</div>
-                <div class="profile-item-value" style="color:var(--green)">${recovery.pct}</div>
+                <div class="profile-item-value">${recovery.pct}</div>
             </div>
             <div>
                 <div class="profile-item-label">Duration</div>
@@ -395,7 +425,7 @@ function renderTimeline() {
         { period: 'Month 3', icon: '🔬', title: 'Stabilization', desc: 'Shedding normalizes. Fine vellus (baby) hairs begin appearing. Hair fall slows significantly. Book your 3-month dermatologist check-in and blood work.', type: 'info' },
         { period: 'Month 5-6', icon: '📈', title: 'Visible Improvement', desc: 'Vellus hairs thicken into terminal hairs. First cosmetic improvements visible. Thinning areas begin to fill in.', type: 'success' },
         { period: 'Month 9', icon: '🎯', title: 'Significant Results', desc: 'Substantial improvement visible to others. Hair density and coverage noticeably better. Compare with Day 1 photos.', type: 'success' },
-        { period: 'Month 12', icon: '🏆', title: 'Near-Peak Results', desc: `Expected recovery: ${recovery.pct} of affected follicles${stageNum >= 5 ? '. At your stage, maintaining this result is the primary goal.' : '. Continue treatment for maintenance — results are cumulative.'}`, type: 'success' }
+        { period: 'Month 12', icon: '🏆', title: 'Near-Peak Results', desc: `Recovery potential: ${recovery.label}${stageNum >= 5 ? '. At your stage, maintaining this result is the primary goal.' : '. Continue treatment for maintenance — results are cumulative.'}`, type: 'success' }
     ];
 
     const html = milestones.map(m => `
@@ -423,12 +453,12 @@ function renderMonitoring(protocol) {
     }
 
     const isOral = protocol.treatments.includes('oral-finasteride');
-    const riskRate = isOral ? '~2%' : '0.002%';
+    const riskRate = isOral ? '~5% (vs ~3% placebo)' : '~2.8% (vs 3.3% placebo)';
     const productName = isOral ? 'Finpecia' : 'Morr-F';
 
     section.innerHTML = `
         <h3>🛡️ Safety Monitoring</h3>
-        <p class="monitoring-intro">Your protocol includes finasteride (${riskRate} real-world side effect rate). Track these markers every 2 weeks against your Day 1 baseline:</p>
+        <p class="monitoring-intro">Your protocol includes finasteride. In the largest Phase III trial, sexual side effects occurred in ${riskRate} of users — statistically similar to placebo, suggesting most are nocebo-driven. Still, track these markers every 2 weeks:</p>
         <div class="monitoring-grid">
             <div class="monitoring-item">
                 <div class="monitoring-label">Morning Erections</div>
@@ -463,11 +493,11 @@ function renderPrognosis() {
 
     let withText = '';
     if (stageNum <= 3 && genetic !== 'severe') {
-        withText = `With this protocol: High probability of <strong style="color:var(--green)">significant regrowth</strong>. Expect stabilization by month 3, visible thickening by month 5-6, and near-peak recovery (${recovery.pct}) by month 12. Your early stage and moderate genetics work in your favor.`;
+        withText = `With this protocol: Clinical studies show minoxidil + microneedling produces <strong>significant regrowth</strong> in up to 82% of early-stage patients (Dhurat 2013). Expect stabilization by month 3, visible thickening by month 5-6. Your early stage and moderate genetics work in your favor.`;
     } else if (stageNum <= 4) {
-        withText = `With this protocol: Strong chance of <strong style="color:var(--green)">meaningful regrowth</strong>. Expect stabilization within 3 months and visible improvement by month 6. Recovery potential: ${recovery.pct}. Consistency is critical — every missed application matters at your stage.`;
+        withText = `With this protocol: <strong>Meaningful regrowth</strong> is achievable. Studies show 35-60% of minoxidil users see significant improvement, with microneedling boosting outcomes substantially. Expect stabilization within 3 months and visible improvement by month 6. Consistency is critical at your stage.`;
     } else {
-        withText = `With this protocol: Primary goal is <strong style="color:var(--amber)">halting further loss</strong> with potential for partial regrowth. ${recovery.pct} recovery of affected follicles is realistic. Some follicles at NW${stageNum}+ may be permanently miniaturized, but treatment can visually improve density in remaining areas.`;
+        withText = `With this protocol: Primary goal is <strong>halting further loss</strong> with potential for partial regrowth. At NW${stageNum}+, some follicles may be permanently miniaturized, but treatment can visually improve density in remaining areas. Individual outcomes vary significantly at advanced stages.`;
     }
     withText += ' Treatment is ongoing — stopping reverses gains within 6-12 months.';
 
@@ -564,7 +594,8 @@ function renderShoppingList(protocol) {
         'saw-palmetto': { brand: 'NOW Saw Palmetto 320mg', type: 'Supplement', price: 12, note: 'Amazon, GNC, Whole Foods' },
         'pumpkin-seed-oil': { brand: 'NOW Pumpkin Seed Oil 1000mg', type: 'Supplement', price: 10, note: 'Amazon' },
         'oral-finasteride': { brand: 'Generic Finasteride 1mg', type: 'Prescription tablet', price: 10, note: 'Requires Rx — Hims, Keeps, or dermatologist' },
-        'oral-minoxidil': { brand: 'Oral Minoxidil 2.5mg', type: 'Prescription tablet', price: 15, note: 'Off-label Rx from dermatologist' }
+        'oral-minoxidil': { brand: 'Oral Minoxidil 2.5mg', type: 'Prescription tablet', price: 15, note: 'Off-label Rx from dermatologist' },
+        'prp': { brand: 'PRP Hair Treatment', type: 'In-clinic procedure (per session)', price: 700, note: 'Dermatology clinic — monthly for 4-6 months' }
     };
 
     let items = '';
@@ -627,18 +658,245 @@ function renderStudies(protocol) {
 
 // ---------- PDF Export ----------
 function exportPDF() {
-    const element = document.getElementById('screen-5');
-    const hideEls = ['.result-actions', '#screen-5 .progress-bar', '#screen-5 .step-indicator'];
-    hideEls.forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = 'none'; });
+    window.print();
+}
 
-    html2pdf().set({
-        margin: [10, 10, 10, 10],
-        filename: 'HairStack-Protocol.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    }).from(element).save().then(() => {
-        hideEls.forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = ''; });
+// ============================================
+//  FEATURE: ADHERENCE STREAK TRACKER
+// ============================================
+
+function getStreakData() {
+    try {
+        return JSON.parse(localStorage.getItem('hairstack-streak') || '{"days":[]}');
+    } catch { return { days: [] }; }
+}
+
+function saveStreakData(data) {
+    localStorage.setItem('hairstack-streak', JSON.stringify(data));
+}
+
+function getDateStr(d) {
+    return d.toISOString().split('T')[0];
+}
+
+function markStreakDay() {
+    const data = getStreakData();
+    const today = getDateStr(new Date());
+    if (data.days.includes(today)) return;
+    data.days.push(today);
+    saveStreakData(data);
+    renderStreak();
+}
+
+function calcStreak(days) {
+    if (!days.length) return { current: 0, best: 0, total: days.length };
+    const sorted = [...days].sort().reverse();
+    const today = new Date();
+    let current = 0;
+    let checkDate = new Date(today);
+
+    // Check if today or yesterday was marked (allow checking in late)
+    const todayStr = getDateStr(today);
+    const yesterdayStr = getDateStr(new Date(today.getTime() - 86400000));
+    if (!sorted.includes(todayStr) && !sorted.includes(yesterdayStr)) {
+        current = 0;
+    } else {
+        if (!sorted.includes(todayStr)) {
+            checkDate = new Date(today.getTime() - 86400000);
+        }
+        for (let i = 0; i < 365; i++) {
+            const ds = getDateStr(checkDate);
+            if (sorted.includes(ds)) {
+                current++;
+                checkDate.setDate(checkDate.getDate() - 1);
+            } else break;
+        }
+    }
+
+    // Best streak
+    let best = 0, run = 1;
+    const asc = [...days].sort();
+    for (let i = 1; i < asc.length; i++) {
+        const prev = new Date(asc[i - 1]);
+        const curr = new Date(asc[i]);
+        const diff = (curr - prev) / 86400000;
+        if (diff === 1) { run++; }
+        else { best = Math.max(best, run); run = 1; }
+    }
+    best = Math.max(best, run, current);
+
+    return { current, best, total: days.length };
+}
+
+function renderStreak() {
+    const data = getStreakData();
+    const stats = calcStreak(data.days);
+    const today = getDateStr(new Date());
+
+    document.getElementById('streak-current').textContent = stats.current;
+    document.getElementById('streak-best').textContent = stats.best;
+    document.getElementById('streak-total').textContent = stats.total;
+
+    // Disable button if today already marked
+    const btn = document.getElementById('streak-mark-btn');
+    if (data.days.includes(today)) {
+        btn.textContent = '✅ Done for Today!';
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+    } else {
+        btn.textContent = '✅ Mark Today as Done';
+        btn.disabled = false;
+        btn.style.opacity = '1';
+    }
+
+    // Render last 30 days calendar
+    const cal = document.getElementById('streak-calendar');
+    let html = '';
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const ds = getDateStr(d);
+        const done = data.days.includes(ds);
+        const isToday = ds === today;
+        html += `<div class="streak-day ${done ? 'done' : ''} ${isToday ? 'today' : ''}" title="${ds}">${d.getDate()}</div>`;
+    }
+    cal.innerHTML = html;
+}
+
+// ============================================
+//  FEATURE: PROGRESS JOURNAL
+// ============================================
+
+function getJournalData() {
+    try {
+        return JSON.parse(localStorage.getItem('hairstack-journal') || '[]');
+    } catch { return []; }
+}
+
+function saveJournalData(data) {
+    localStorage.setItem('hairstack-journal', JSON.stringify(data));
+}
+
+function addJournalEntry() {
+    const rating = document.getElementById('journal-rating').value;
+    if (!rating) { alert('Please select an improvement rating.'); return; }
+    const notes = document.getElementById('journal-notes').value.trim();
+
+    const entries = getJournalData();
+    entries.unshift({
+        id: Date.now(),
+        date: new Date().toISOString(),
+        rating: parseInt(rating),
+        notes: notes
+    });
+    saveJournalData(entries);
+
+    // Reset form
+    document.getElementById('journal-rating').value = '';
+    document.getElementById('journal-notes').value = '';
+
+    renderJournal();
+}
+
+function deleteJournalEntry(id) {
+    if (!confirm('Delete this entry?')) return;
+    const entries = getJournalData().filter(e => e.id !== id);
+    saveJournalData(entries);
+    renderJournal();
+}
+
+function renderJournal() {
+    const entries = getJournalData();
+    const container = document.getElementById('journal-entries');
+
+    if (!entries.length) {
+        container.innerHTML = '<p class="journal-empty">No entries yet. Add your first log after 1 month of treatment.</p>';
+        return;
+    }
+
+    const ratingLabels = ['', 'Worse', 'No change', 'Slight improvement', 'Noticeable improvement', 'Significant improvement'];
+    const ratingColors = ['', '#ef4444', '#6b7280', '#f59e0b', '#22c55e', '#10b981'];
+
+    container.innerHTML = entries.map(e => {
+        const d = new Date(e.date);
+        const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        return `
+            <div class="journal-entry">
+                <div class="journal-entry-header">
+                    <span class="journal-date">${dateStr}</span>
+                    <span class="journal-rating-badge" style="background:${ratingColors[e.rating]}20;color:${ratingColors[e.rating]}">
+                        ${'★'.repeat(e.rating)}${'☆'.repeat(5 - e.rating)} ${ratingLabels[e.rating]}
+                    </span>
+                    <button class="journal-delete" onclick="deleteJournalEntry(${e.id})" title="Delete">×</button>
+                </div>
+                ${e.notes ? `<p class="journal-notes">${e.notes}</p>` : ''}
+            </div>
+        `;
+    }).join('');
+}
+
+// ============================================
+//  FEATURE: TREATMENT LIBRARY
+// ============================================
+
+function renderLibrary() {
+    if (!treatmentsData) return;
+
+    const categoryLabels = {
+        'growth-stimulation': '💊 Growth Stimulation',
+        'dht-blocker': '🛡️ DHT Blocker',
+        'natural-dht-blocker': '🌿 Natural DHT Blocker',
+        'stem-cell-activator': '🧬 Stem Cell Activator',
+        'scalp-health': '🧴 Scalp Health',
+        'absorption-booster': '⚡ Absorption Booster',
+        'hormonal-support': '⚖️ Hormonal Support'
+    };
+
+    const currentProtocol = protocolsData ? protocolsData[state.riskTolerance] : null;
+    const activeTreatmentIds = currentProtocol ? currentProtocol.treatments : [];
+
+    const html = treatmentsData.map(t => {
+        const inProtocol = activeTreatmentIds.includes(t.id);
+        const stars = '⭐'.repeat(t.evidenceRating) + '☆'.repeat(5 - t.evidenceRating);
+        const study = studiesData ? studiesData.find(s => s.id === t.keyStudyId) : null;
+
+        return `
+            <div class="lib-treatment ${inProtocol ? 'in-protocol' : ''}" data-category="${t.category}" onclick="this.classList.toggle('expanded')">
+                <div class="lib-treatment-header">
+                    <div>
+                        <span class="lib-name">${t.name}</span>
+                        ${inProtocol ? '<span class="lib-badge">In Your Protocol</span>' : ''}
+                        ${t.fdaApproved ? '<span class="lib-badge fda">FDA</span>' : ''}
+                    </div>
+                    <span class="lib-evidence">${stars}</span>
+                </div>
+                <div class="lib-mechanism">${t.mechanismShort}</div>
+                <div class="lib-details">
+                    <div class="lib-detail-row"><strong>Category:</strong> ${categoryLabels[t.category] || t.category}</div>
+                    <div class="lib-detail-row"><strong>Full Mechanism:</strong> ${t.mechanism}</div>
+                    <div class="lib-detail-row"><strong>Evidence:</strong> ${t.evidenceLabel}</div>
+                    <div class="lib-detail-row"><strong>Frequency:</strong> ${t.applicationFrequency}</div>
+                    <div class="lib-detail-row"><strong>Time to Results:</strong> ${t.timeToResults}</div>
+                    <div class="lib-detail-row"><strong>Side Effects:</strong> ${t.sideEffects.join('; ')}</div>
+                    <div class="lib-detail-row"><strong>Notes:</strong> ${t.notes}</div>
+                    ${study ? `<div class="lib-detail-row"><strong>Key Study:</strong> <a href="${study.url}" target="_blank" rel="noopener">${study.title}</a></div>` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    document.getElementById('library-content').innerHTML = html;
+}
+
+function filterLibrary(category, btn) {
+    document.querySelectorAll('.lib-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.lib-treatment').forEach(el => {
+        if (category === 'all' || el.dataset.category === category) {
+            el.style.display = '';
+        } else {
+            el.style.display = 'none';
+        }
     });
 }

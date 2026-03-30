@@ -8,10 +8,12 @@
     <meta property="og:title" content="HairStack — Evidence-Based Hair Loss Protocols">
     <meta property="og:description" content="Personalized hair loss treatment protocol in 60 seconds. Free & open-source.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bhaskarjha-com.github.io/hairstack/">
+    <meta property="og:image" content="https://bhaskarjha-com.github.io/hairstack/favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js" defer></script>
 </head>
 <body>
     <!-- Hero / Landing -->
@@ -20,17 +22,17 @@
             <div class="hero-badge">Open Source · Evidence-Based · Free</div>
             <h1>Hair<span class="accent">Stack</span></h1>
             <p class="hero-subtitle">Get a personalized, evidence-based hair loss protocol in 60 seconds</p>
-            <p class="hero-description">Answer 5 questions. Get a treatment plan backed by clinical studies. Print your daily routine. No signup. No tracking. Your data stays on your device.</p>
+            <p class="hero-description">Answer a few questions. Get a treatment plan backed by clinical studies. Print your daily routine. No signup. No tracking. Your data stays on your device.</p>
             <button class="btn btn-primary btn-lg" onclick="startAssessment()">
                 Get Your Protocol
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
             <div class="hero-stats">
-                <div class="stat"><span class="stat-number">18</span><span class="stat-label">Treatments Analyzed</span></div>
-                <div class="stat"><span class="stat-number">11+</span><span class="stat-label">Clinical Studies</span></div>
+                <div class="stat"><span class="stat-number">10</span><span class="stat-label">Treatments Available</span></div>
+                <div class="stat"><span class="stat-number">19</span><span class="stat-label">Clinical Studies</span></div>
                 <div class="stat"><span class="stat-number">4</span><span class="stat-label">Protocol Tiers</span></div>
             </div>
-            <a href="https://github.com/YOUR_USERNAME/hairstack" class="github-link" target="_blank">⭐ Star on GitHub</a>
+            <a href="https://github.com/bhaskarjha-com/hairstack" class="github-link" target="_blank">⭐ Star on GitHub</a>
         </div>
     </section>
 
@@ -240,20 +242,27 @@
                     <div class="risk-icon">🛡️</div>
                     <h3>Zero Risk</h3>
                     <p>I want <strong>zero health risk</strong>, even if results are slower. No pharmaceutical DHT blockers.</p>
-                    <div class="risk-efficacy">~62% efficacy</div>
+                    <div class="risk-efficacy">Moderate efficacy</div>
                 </div>
                 <div class="risk-card recommended" data-risk="optimal" onclick="selectRisk(this, 'optimal')">
                     <div class="recommended-badge">Recommended</div>
                     <div class="risk-icon">⚡</div>
                     <h3>Optimal</h3>
-                    <p>I want the <strong>best results with minimal risk</strong>. I'm open to topical finasteride (0.002% side effect rate).</p>
-                    <div class="risk-efficacy">~87% efficacy</div>
+                    <p>I want the <strong>best results with minimal risk</strong>. I'm open to topical finasteride (side effects similar to placebo in Phase III trials).</p>
+                    <div class="risk-efficacy">High efficacy</div>
                 </div>
                 <div class="risk-card" data-risk="aggressive" onclick="selectRisk(this, 'aggressive')">
                     <div class="risk-icon">🚀</div>
                     <h3>Aggressive</h3>
                     <p>I want <strong>maximum results</strong> and accept standard medical risks. Include oral medications + PRP.</p>
-                    <div class="risk-efficacy">~93% efficacy</div>
+                    <div class="risk-efficacy">Very high efficacy</div>
+                </div>
+                <div class="risk-card" data-risk="gold-standard" onclick="selectRisk(this, 'gold-standard')">
+                    <div class="recommended-badge" style="background:var(--amber);color:#000">Reference Standard</div>
+                    <div class="risk-icon">🏆</div>
+                    <h3>Gold Standard</h3>
+                    <p><strong>Oral finasteride + minoxidil</strong> — the clinical benchmark all protocols are measured against. ~5% sexual side effects (vs ~3% placebo).</p>
+                    <div class="risk-efficacy">Maximum efficacy (reference)</div>
                 </div>
             </div>
             <div class="nav-buttons">
@@ -356,22 +365,84 @@
                 <div id="studies-content"></div>
             </div>
 
+            <!-- Adherence Streak Tracker -->
+            <div id="streak-section" class="result-card streak-card">
+                <h3>🔥 Treatment Streak</h3>
+                <p class="streak-subtitle">Mark each day you complete your routine. Consistency is the #1 predictor of results.</p>
+                <div class="streak-display">
+                    <div class="streak-stat">
+                        <span id="streak-current" class="streak-number">0</span>
+                        <span class="streak-label">Current Streak</span>
+                    </div>
+                    <div class="streak-stat">
+                        <span id="streak-best" class="streak-number">0</span>
+                        <span class="streak-label">Best Streak</span>
+                    </div>
+                    <div class="streak-stat">
+                        <span id="streak-total" class="streak-number">0</span>
+                        <span class="streak-label">Total Days</span>
+                    </div>
+                </div>
+                <div class="streak-calendar" id="streak-calendar"></div>
+                <button class="btn btn-primary streak-btn" id="streak-mark-btn" onclick="markStreakDay()">✅ Mark Today as Done</button>
+            </div>
+
+            <!-- Progress Journal -->
+            <div id="journal-section" class="result-card journal-card">
+                <h3>📊 Progress Journal</h3>
+                <p class="journal-subtitle">Log monthly entries to track your results. Data stays on your device.</p>
+                <div class="journal-form">
+                    <div class="journal-row">
+                        <label>Self-rated improvement</label>
+                        <select id="journal-rating">
+                            <option value="">Select...</option>
+                            <option value="1">1 — Worse than before</option>
+                            <option value="2">2 — No change</option>
+                            <option value="3">3 — Slight improvement</option>
+                            <option value="4">4 — Noticeable improvement</option>
+                            <option value="5">5 — Significant improvement</option>
+                        </select>
+                    </div>
+                    <div class="journal-row">
+                        <label>Notes (optional)</label>
+                        <textarea id="journal-notes" placeholder="e.g., Less shedding, baby hairs on temples, scalp itchiness reduced..." rows="2"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addJournalEntry()">Add Entry</button>
+                </div>
+                <div id="journal-entries"></div>
+            </div>
+
+            <!-- Treatment Library -->
+            <div id="library-section" class="result-card library-card">
+                <h3>📖 Full Treatment Library</h3>
+                <p class="library-subtitle">All 18 analyzed treatments — including ones not in your protocol. Tap to expand.</p>
+                <div class="library-filters">
+                    <button class="lib-filter active" onclick="filterLibrary('all', this)">All</button>
+                    <button class="lib-filter" onclick="filterLibrary('growth-stimulation', this)">Growth</button>
+                    <button class="lib-filter" onclick="filterLibrary('dht-blocker', this)">DHT Blockers</button>
+                    <button class="lib-filter" onclick="filterLibrary('natural-dht-blocker', this)">Natural</button>
+                    <button class="lib-filter" onclick="filterLibrary('stem-cell-activator', this)">Stem Cell</button>
+                    <button class="lib-filter" onclick="filterLibrary('scalp-health', this)">Scalp Health</button>
+                </div>
+                <div id="library-content"></div>
+            </div>
+
             <!-- Actions -->
             <div class="result-actions">
-                <button class="btn btn-primary" onclick="exportPDF()">📄 Download PDF</button>
+                <button class="btn btn-primary" onclick="exportPDF()">🖨️ Print / Save PDF</button>
                 <button class="btn btn-ghost" onclick="startOver()">↩ Start Over</button>
             </div>
 
             <!-- Disclaimer -->
             <div class="disclaimer">
-                <strong>⚕️ Medical Disclaimer:</strong> HairStack is an evidence library, not medical advice. Every recommendation links to published clinical studies. Always consult a board-certified dermatologist before starting treatment. Individual results vary. See <a href="DISCLAIMER.md">full disclaimer</a>.
+                <strong>⚕️ Medical Disclaimer:</strong> HairStack is an evidence library, not medical advice. Every recommendation links to published clinical studies. Always consult a board-certified dermatologist before starting treatment. Individual results vary. See <a href="https://github.com/bhaskarjha-com/hairstack/blob/main/DISCLAIMER.md" target="_blank">full disclaimer</a>.
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>HairStack is open-source and free forever. <a href="https://github.com/YOUR_USERNAME/hairstack" target="_blank">View on GitHub</a></p>
+            <p>HairStack is open-source and free forever. <a href="https://github.com/bhaskarjha-com/hairstack" target="_blank">View on GitHub</a></p>
             <p class="footer-note">Built with research, not marketing budgets. No affiliate links. No tracking. MIT License.</p>
         </div>
     </footer>

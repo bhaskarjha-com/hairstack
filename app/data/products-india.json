@@ -31,6 +31,12 @@
     "oral-finasteride": [
       { "brand": "Finpecia 1mg", "manufacturer": "Cipla", "type": "Tablet", "size": "30 tablets", "price": 250, "duration": "1 month", "availability": "Prescription" },
       { "brand": "Finax 1mg", "manufacturer": "Dr Reddy's", "type": "Tablet", "size": "30 tablets", "price": 270, "duration": "1 month", "availability": "Prescription" }
+    ],
+    "oral-minoxidil": [
+      { "brand": "Lonitab 2.5mg", "manufacturer": "Intas Pharma", "type": "Tablet", "size": "10 tablets", "price": 180, "duration": "~10 days", "availability": "Prescription", "url": "https://www.1mg.com/drugs/lonitab-2.5-tablet" }
+    ],
+    "prp": [
+      { "brand": "PRP Hair Treatment (Clinic)", "manufacturer": "Various Clinics", "type": "In-clinic procedure", "size": "1 session", "price": 5000, "duration": "Monthly for 4-6 months, then every 3-6 months", "availability": "Dermatology clinic" }
     ]
   },
   "currency": "INR",
