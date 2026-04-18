@@ -26,7 +26,7 @@
       { "brand": "Carbamide Forte Pumpkin Seed Oil", "manufacturer": "Carbamide Forte", "type": "Capsule", "size": "120 capsules", "price": 550, "duration": "~4 months", "availability": "OTC" }
     ],
     "microneedling": [
-      { "brand": "Dermaroller 1.5mm (Titanium)", "manufacturer": "Various", "type": "Dermaroller", "size": "1 piece", "price": 500, "duration": "Replace every 3 months", "availability": "OTC", "url": "https://www.amazon.in/s?k=dermaroller+1.5mm" }
+      { "brand": "Dermaroller 1.0mm (Titanium) or Dr. Pen M8", "manufacturer": "Various", "type": "Dermaroller / Dermapen", "size": "1 piece", "price": 500, "duration": "Replace roller every 4-6 uses", "availability": "OTC", "url": "https://www.amazon.in/s?k=dermaroller+1mm" }
     ],
     "oral-finasteride": [
       { "brand": "Finpecia 1mg", "manufacturer": "Cipla", "type": "Tablet", "size": "30 tablets", "price": 250, "duration": "1 month", "availability": "Prescription" },

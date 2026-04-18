@@ -20,9 +20,9 @@
     },
     {
       "id": "microneedling",
-      "name": "Microneedling 1.5mm",
+      "name": "Microneedling (1.0mm dermaroller / 0.5-0.75mm dermapen)",
       "category": "absorption-booster",
-      "mechanism": "Creates controlled micro-injuries triggering wound-healing cascade — releases PDGF, VEGF, EGF growth factors. Increases topical absorption by 4×",
+      "mechanism": "Creates controlled micro-injuries triggering wound-healing cascade — releases PDGF, VEGF, EGF growth factors. Increases topical absorption by 4×. Meta-analyses show ≤1mm is equally effective as >1mm.",
       "mechanismShort": "4× minoxidil absorption + growth factor release",
       "evidenceRating": 5,
       "evidenceLabel": "Multiple RCTs, dramatic results",
@@ -34,7 +34,7 @@
       "applicationFrequency": "Once weekly",
       "timeToResults": "Enhances minoxidil results within 3 months",
       "keyStudyId": "dhurat-2013",
-      "notes": "Skip minoxidil for 24 hours after needling. Sanitize roller with 70% isopropyl alcohol."
+      "notes": "Use 1.0mm for dermaroller (enters at angle, effective depth ~0.7mm) or 0.5-0.75mm for dermapen (vertical penetration). Faghihi 2021 RCT found 0.6mm outperformed 1.2mm. Skip minoxidil for 24 hours after needling. Sanitize device with 70% isopropyl alcohol. Replace roller every 4-6 uses."
     },
     {
       "id": "topical-finasteride",

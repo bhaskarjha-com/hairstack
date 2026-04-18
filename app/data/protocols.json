@@ -24,7 +24,7 @@
           { "time": "With breakfast", "action": "Saw Palmetto 320mg + Pumpkin Seed Oil 400mg", "products": ["saw-palmetto", "pumpkin-seed-oil"] }
         ],
         "weekly": [
-          { "day": "Wednesday evening", "action": "Microneedling 1.5mm — all thinning areas", "product": "microneedling", "duration": "10 min", "note": "Skip minoxidil that night + next morning" },
+          { "day": "Wednesday evening", "action": "Microneedling 1.0mm — all thinning areas", "product": "microneedling", "duration": "10 min", "note": "Skip minoxidil that night + next morning" },
           { "day": "Tuesday & Saturday", "action": "Ketoconazole shampoo (leave 3-5 min)", "product": "ketoconazole" }
         ]
       }
@@ -53,7 +53,7 @@
         ],
         "supplements": [],
         "weekly": [
-          { "day": "Wednesday evening", "action": "Microneedling 1.5mm — all thinning areas, then apply Redensyl", "product": "microneedling", "duration": "10 min", "note": "Skip Morr-F that night. Skip Mintop next morning. Resume Morr-F Thursday evening." },
+          { "day": "Wednesday evening", "action": "Microneedling 1.0mm — all thinning areas, then apply Redensyl", "product": "microneedling", "duration": "10 min", "note": "Skip Morr-F that night. Skip Mintop next morning. Resume Morr-F Thursday evening." },
           { "day": "Tuesday & Saturday", "action": "Ketoconazole shampoo (leave 3-5 min)", "product": "ketoconazole" }
         ]
       }
@@ -81,7 +81,7 @@
         ],
         "supplements": [],
         "weekly": [
-          { "day": "Wednesday evening", "action": "Microneedling 1.5mm", "product": "microneedling", "duration": "10 min", "note": "Skip Morr-F that night. Apply Redensyl after needling." },
+          { "day": "Wednesday evening", "action": "Microneedling 1.0mm", "product": "microneedling", "duration": "10 min", "note": "Skip Morr-F that night. Apply Redensyl after needling." },
           { "day": "Tuesday & Saturday", "action": "Ketoconazole shampoo", "product": "ketoconazole" }
         ],
         "monthly": [
@@ -111,7 +111,7 @@
         ],
         "supplements": [],
         "weekly": [
-          { "day": "Wednesday evening", "action": "Microneedling 1.5mm", "product": "microneedling", "duration": "10 min" },
+          { "day": "Wednesday evening", "action": "Microneedling 1.0mm", "product": "microneedling", "duration": "10 min" },
           { "day": "Tuesday & Saturday", "action": "Ketoconazole shampoo", "product": "ketoconazole" }
         ]
       }

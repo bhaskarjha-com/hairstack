@@ -588,7 +588,7 @@ function renderShoppingList(protocol) {
     const usProducts = {
         'topical-minoxidil': { brand: 'Rogaine / Kirkland 5%', type: 'Solution or Foam', price: 25, note: 'OTC at Walmart, Costco, Amazon' },
         'topical-finasteride': { brand: 'Compounded Topical Finasteride 0.1%', type: 'Prescription compound', price: 50, note: 'Ask dermatologist for compounding pharmacy Rx' },
-        'microneedling': { brand: 'Dr. Pen or Dermaroller 1.5mm', type: 'Device', price: 30, note: 'Amazon' },
+        'microneedling': { brand: 'Dr. Pen M8 or Dermaroller 1.0mm', type: 'Device (dermapen: use 0.5-0.75mm)', price: 30, note: 'Amazon — replace roller every 4-6 uses' },
         'redensyl': { brand: 'The Ordinary Multi-Peptide Serum / Revela', type: 'Hair Serum', price: 20, note: 'Sephora, Amazon' },
         'ketoconazole': { brand: 'Nizoral A-D 1%', type: 'Shampoo', price: 15, note: 'OTC at CVS, Walgreens, Amazon' },
         'saw-palmetto': { brand: 'NOW Saw Palmetto 320mg', type: 'Supplement', price: 12, note: 'Amazon, GNC, Whole Foods' },

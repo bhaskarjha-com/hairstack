@@ -9,7 +9,7 @@
 
 ## 🎯 What is HairStack?
 
-HairStack is an **open-source protocol generator** for male androgenetic alopecia (pattern hair loss). Answer 5 questions → get a treatment protocol backed by clinical studies → print your daily routine.
+HairStack is an **open-source protocol generator** for male androgenetic alopecia (pattern hair loss). Answer a few questions → get a treatment protocol backed by clinical studies → print your daily routine.
 
 **No marketing. No affiliate links. No tracking. Just research.**
 
@@ -46,7 +46,7 @@ Every treatment is scored on a 5-point evidence scale based on study quality and
 | Treatment | Mechanism | Evidence | Category |
 |---|---|---|---|
 | Topical Minoxidil 5% | Vasodilation, prolongs anagen | ⭐⭐⭐⭐⭐ FDA-approved | Growth stimulation |
-| Microneedling 1.5mm | 4× minoxidil absorption + growth factors | ⭐⭐⭐⭐⭐ Multiple RCTs | Absorption booster |
+| Microneedling (1.0mm roller / 0.5mm pen) | 4× minoxidil absorption + growth factors | ⭐⭐⭐⭐⭐ Multiple RCTs | Absorption booster |
 | Topical Finasteride 0.1% | 70% scalp DHT reduction, minimal systemic | ⭐⭐⭐⭐⭐ Phase III RCT | DHT blocker |
 | Oral Finasteride 1mg | 70% systemic DHT reduction | ⭐⭐⭐⭐⭐ FDA-approved | DHT blocker |
 | Redensyl 3% | Hair follicle stem cell activation | ⭐⭐⭐⭐ Strong emerging | Stem cell activator |

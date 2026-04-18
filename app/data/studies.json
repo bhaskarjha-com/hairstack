@@ -15,8 +15,17 @@
       "year": 2013,
       "type": "Randomized Controlled Trial",
       "source": "International Journal of Trichology",
-      "finding": "Microneedling + minoxidil: 91.4 hairs/cm² gain vs minoxidil alone: 22.2 hairs/cm². 4.1× improvement. 82% of microneedling group had >50% improvement.",
+      "finding": "Microneedling (1.5mm) + minoxidil: 91.4 hairs/cm² gain vs minoxidil alone: 22.2 hairs/cm². 4.1× improvement. 82% of microneedling group had >50% improvement. Note: this study proved microneedling works but did not compare depths.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/24644385/"
+    },
+    {
+      "id": "faghihi-2021",
+      "title": "Microneedling in AGA: Comparing Two Different Depths of Microneedles",
+      "year": 2021,
+      "type": "Randomized Controlled Trial",
+      "source": "Journal of Cosmetic Dermatology",
+      "finding": "0.6mm outperformed 1.2mm for both hair count (p=.017) and thickness (p=.007) when combined with minoxidil. Shallower depth was significantly less painful with better patient compliance.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33382179/"
     },
     {
       "id": "topical-fin-phase3",
