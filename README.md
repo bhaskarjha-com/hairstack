@@ -13,7 +13,7 @@ HairStack is an **open-source protocol generator** for male androgenetic alopeci
 
 **No marketing. No affiliate links. No tracking. Just research.**
 
-### [→ Get Your Protocol](https://bhaskarjha-com.github.io/hairstack/)
+### [→ Get Your Protocol](https://bhaskarjha-dev.github.io/hairstack/)
 
 ---
 
